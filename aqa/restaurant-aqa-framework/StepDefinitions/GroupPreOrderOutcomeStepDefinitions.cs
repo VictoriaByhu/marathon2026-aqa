@@ -29,7 +29,7 @@ public sealed class GroupPreOrderOutcomeStepDefinitions(Actor actor) : StepDefin
     public Task ThenTheGroupIsNotFound() => AssertNotFoundAsync(404, "Group reservation was not found");
 
     [Then("the owner is told that the reservation could not be found")]
-    public Task ThenTheReservationIsNotFound() => AssertNotFoundAsync(404, "was not found");
+    public Task ThenTheReservationIsNotFound() => AssertNotFoundAsync(404, "Reservation");
 
     [Then("the owner is told that the participant could not be found")]
     public Task ThenTheParticipantIsNotFound() => AssertNotFoundAsync(404, "not found");
