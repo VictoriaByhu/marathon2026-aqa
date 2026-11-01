@@ -23,12 +23,14 @@ public sealed class TheCredentialsOf(Requester requester, string booking = Group
             case Requester.Waiter:
                 return (await actor.AsksForAsync(new TheWaiterSession())).IdToken;
             case Requester.Guest:
-                return actor.TheCartsIn(booking).FirstOrDefault()?.SessionToken
-                    ?? throw new InvalidOperationException($"Nobody has joined {booking} yet, so there is no guest to ask.");
+                var carts = actor.TheCartsIn(booking);
+                return carts.Count > 0
+                    ? carts[0].SessionToken
+                    : throw new InvalidOperationException($"Nobody has joined {booking} yet, so there is no guest to ask.");
             case Requester.Anonymous:
                 return null;
             default:
-                throw new ArgumentOutOfRangeException(nameof(requester), requester, null);
+                throw new InvalidOperationException($"Unknown requester '{requester}'.");
         }
     }
 }

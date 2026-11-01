@@ -153,7 +153,7 @@ public sealed class GroupPreOrderParticipantStepDefinitions(Actor actor) : StepD
     public async Task ThenTheOwnerIsListedFirst()
     {
         var shown = await Actor.AsksForAsync(new TheParticipantsShown());
-        var first = shown.Participants.FirstOrDefault();
+        var first = shown.Participants.Count > 0 ? shown.Participants[0] : null;
 
         await Assert.That(first).IsNotNull().Because($"the group as returned was: {Actor.TheLastResponse().Body}");
         await Assert.That(first!.Type).IsEqualTo("Owner");
