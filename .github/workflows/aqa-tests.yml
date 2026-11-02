@@ -46,6 +46,7 @@ jobs:
         working-directory: aqa/restaurant-aqa-framework
     env:
       HEADLESS: "true"
+      DEFAULT_TIMEOUT_MS: "30000"
       TRACE_MODE: "OnFailureOnly"
     steps:
       - uses: actions/checkout@v5

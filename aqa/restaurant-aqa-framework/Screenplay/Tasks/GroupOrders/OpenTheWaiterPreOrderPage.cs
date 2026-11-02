@@ -13,6 +13,7 @@ public sealed class OpenTheWaiterPreOrderPage(string booking = GroupNames.Main) 
 
         await new StorefrontSession(browser).SignOutAsync();
         await actor.AttemptsToAsync(new SignInThroughTheLoginForm(username, password));
+        await browser.WaitForFunctionAsync("() => localStorage.getItem('user') !== null");
         await new WaiterPreOrderPage(browser).OpenForAsync(actor.TheBooking(booking).ReservationId, actor.TheOwner().FirstName);
     }
 }
