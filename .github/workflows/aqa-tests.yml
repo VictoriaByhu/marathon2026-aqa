@@ -201,6 +201,25 @@ jobs:
           print("Reports, traces and the TRX are attached to this run as artifacts.")
           PY
 
+      - name: Annotate failed tests
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import glob
+          import xml.etree.ElementTree as ET
+
+          for path in glob.glob("TestResults/*.trx"):
+              root = ET.parse(path).getroot()
+              ns = {"t": root.tag.split("}")[0].strip("{")}
+              for result in root.findall(".//t:UnitTestResult", ns):
+                  if result.get("outcome") != "Failed":
+                      continue
+                  message = result.find(".//t:Message", ns)
+                  text = (message.text or "") if message is not None else ""
+                  first = " ".join(text.split())[:400].replace("%", "%25")
+                  print(f"::error title={result.get('testName')}::{first}")
+          PY
+
       - name: Fail the job if tests failed
         if: always() && steps.run_tests.outcome != 'success'
         run: exit 1
