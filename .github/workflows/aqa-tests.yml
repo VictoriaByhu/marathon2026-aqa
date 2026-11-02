@@ -14,6 +14,7 @@ on:
           - level-1
           - level-2
           - level-3
+          - extra
         default: all
       custom_filter:
         description: >

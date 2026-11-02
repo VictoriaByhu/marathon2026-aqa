@@ -34,7 +34,7 @@ public sealed class BookAGroupTable(int guests, string booking = GroupNames.Main
             await groups.GetInviteAsync(invite.Token),
             "Opening the group invitation");
 
-        actor.Remember(booking, new GroupBooking(booking, reservation.Id, group.GroupReservationId, guests, startTime));
+        actor.Remember(booking, new GroupBooking(booking, reservation.Id, group.GroupReservationId, guests, startTime, invite.Token));
     }
 
     private static DateTime StartTimeFor(Actor actor, int earlierBookings)

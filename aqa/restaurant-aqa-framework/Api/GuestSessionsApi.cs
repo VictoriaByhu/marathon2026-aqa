@@ -12,6 +12,12 @@ public sealed class GuestSessionsApi(IAPIRequestContext api) : ApiClientBase(api
             Headers = Headers(),
         });
 
+    public Task<IAPIResponse> GetSessionAsync(string guestSessionId, string sessionToken) =>
+        GetAsync(Url($"/guest/sessions/{guestSessionId}"), new APIRequestContextOptions
+        {
+            Headers = Headers(sessionToken),
+        });
+
     public Task<IAPIResponse> AddDishAsync(string guestSessionId, string sessionToken, string dishId, int quantity) =>
         Api.PostAsync(Url($"/guest/sessions/{guestSessionId}/dishes"), new APIRequestContextOptions
         {

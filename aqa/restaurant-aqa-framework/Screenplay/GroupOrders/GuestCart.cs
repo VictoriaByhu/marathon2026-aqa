@@ -25,6 +25,13 @@ public sealed class GuestCart(string guestName, string booking, string sessionId
             _items.Remove(label);
     }
 
+    public void ReplaceWith(IReadOnlyDictionary<string, int> items)
+    {
+        _items.Clear();
+        foreach (var (label, quantity) in items)
+            _items[label] = quantity;
+    }
+
     public void MarkSubmitted() => IsSubmitted = true;
 
     public void MarkRemoved() => IsRemoved = true;

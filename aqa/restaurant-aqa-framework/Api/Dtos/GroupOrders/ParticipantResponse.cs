@@ -6,4 +6,5 @@ public sealed record ParticipantResponse(
     string Name,
     IReadOnlyList<ParticipantItemResponse> Items,
     decimal Total,
-    bool IsSubmitted);
+    bool IsSubmitted,
+    DateTime? RemindedAt = null);
